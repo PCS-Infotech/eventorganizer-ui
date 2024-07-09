@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">eventapp</string>
+    <string name="app_name">event app</string>
     <string name="todo2">do</string>
     <string name="powered_by">by</string>
     <string name="todo">im1</string>
     <string name="by">Powered By</string>
+    <string name="Continue">Continue</string>
+    <string name="LoginorSignUp">Login or Sign Up</string>
+    <string name="Enter_Mobile_Number">Enter Mobile Number</string>
 </resources>
