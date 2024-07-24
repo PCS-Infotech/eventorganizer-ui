@@ -1,14 +1,15 @@
 package com.pcsinfotech.eventapp.modals
 
 
-data class IsoCodeModal(
+data class RequestBodyForRequestOtp(
     val country: String,
-    val isoCode: String
+    val isoCode: String,
+    val mobile: String
 )
 
-data class IsoCodeGetter(
+data class RequestOTPResponse(
     val success: Boolean,
     val errorCode: String,
     val errorMessage: String,
-    val isoCodes: ArrayList<IsoCodeModal>
+    val otpValidTimeoutInSecs: Int
 )

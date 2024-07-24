@@ -47,4 +47,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.retrofit2)
     implementation(libs.gsonConverter)
+    implementation(libs.logging.interceptor)
 }
