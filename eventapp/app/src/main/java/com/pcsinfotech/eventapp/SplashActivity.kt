@@ -19,6 +19,10 @@ class SplashActivity : AppCompatActivity() {
             insets
 
         }
+        Handler().postDelayed({
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }, 2000)
 
     }
 }
