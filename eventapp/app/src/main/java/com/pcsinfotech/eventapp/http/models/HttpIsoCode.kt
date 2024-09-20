@@ -1,14 +1,14 @@
-package com.pcsinfotech.eventapp.modals
+package com.pcsinfotech.eventapp.http.models
 
 
-data class IsoCodeModal(
+data class HttpIsoCode(
     val country: String,
     val isoCode: String
 )
 
-data class IsoCodeGetter(
+data class HttpIsoCodes(
     val success: Boolean,
     val errorCode: String,
     val errorMessage: String,
-    val isoCodes: ArrayList<IsoCodeModal>
+    val isoCodes: ArrayList<HttpIsoCode>
 )

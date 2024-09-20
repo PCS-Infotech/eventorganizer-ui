@@ -7,4 +7,5 @@
     <string name="Continue">Continue</string>
     <string name="LoginorSignUp">Login or Sign Up</string>
     <string name="Enter_Mobile_Number">Enter Mobile Number</string>
+    <string name="SelectCountry">Select Country</string>
 </resources>

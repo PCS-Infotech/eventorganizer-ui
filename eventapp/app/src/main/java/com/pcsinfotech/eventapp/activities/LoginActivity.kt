@@ -1,74 +1,75 @@
-package com.pcsinfotech.eventapp
+package com.pcsinfotech.eventapp.activities
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.pcsinfotech.eventapp.interfaces.ApiService
-import com.pcsinfotech.eventapp.interfaces.RequestOtpService
-import com.pcsinfotech.eventapp.interfaces.ServiceBuilder
-import com.pcsinfotech.eventapp.modals.IsoCodeGetter
-import com.pcsinfotech.eventapp.modals.RequestBodyForRequestOtp
-import com.pcsinfotech.eventapp.modals.RequestOTPResponse
-import retrofit2.*
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.pcsinfotech.eventapp.R
+import com.pcsinfotech.eventapp.models.IsoCode
+import com.pcsinfotech.eventapp.services.IsoCodeService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var exposedDropDown : AutoCompleteTextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
+        exposedDropDown = findViewById(R.id.autoCompleteTextView)
 
-            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        loadIsoCode()
-        postRequestOtp()
+        loadIsoCodes()
+        // postRequestOtp()
 
     }
 
-    private fun loadIsoCode()
+    private fun loadIsoCodes()
     {
-        //calling the buildService function which is belongs to Service Builder object and passing the ApiService interface which returns the instance or object of the class which is in interface ApiService
-        val apiGetIsoCodes : ApiService =  ServiceBuilder.buildService(ApiService::class.java)
+        //var isoCodesList : ArrayList<IsoCode> = ArrayList()
 
-        //calling the function getIsoCodes()(it will return the call object which will fetch the isoCode from the server) which is in interface using the object reference apiGetIsoCodes and storing in requestCall instance
-        val requestCall : Call<IsoCodeGetter> = apiGetIsoCodes.getIsoCodes()
 
-        //enqueue() - Asynchronously send the request and notify callback of its response or if an error occurred talking to the server, creating the request, or processing the response.
-        requestCall.enqueue(object : Callback<IsoCodeGetter> {
 
-            //Call - Synchronously send the http request and return its http response
 
-            override fun onResponse(call: Call<IsoCodeGetter>, response: Response<IsoCodeGetter>) {
-                //Status code will decide the success or failure
-                if(response.isSuccessful){
-                    val isoCodes : IsoCodeGetter = response.body()!!
-                    Log.d("isoCodes ",isoCodes.isoCodes.count().toString())
+            var isoCodeService = IsoCodeService()
+            val isoCodes = isoCodeService.getIsoCodes()
+
+
+                if (isoCodes.isNotEmpty()) {
+                    updateDropdown(isoCodes)
                 }
-                else //Application level failure
-                {
-                    Toast.makeText(this@LoginActivity, "Failed to retrieve IsoCodes", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            //Exception
-            override fun onFailure(call: Call<IsoCodeGetter>, t: Throwable) {
-
-
-
+            else{
+                    Log.d("Empty", "No data received")
             }
 
 
-        })
     }
 
-    //POST method for request OTP
+      private fun updateDropdown(items: List<IsoCode>) {
+
+            val adapter = ArrayAdapter(this@LoginActivity, R.layout.activity_login, items)
+            val autoCompleteTextView = findViewById<MaterialAutoCompleteTextView>(R.id.autoCompleteTextView)
+            autoCompleteTextView.setAdapter(adapter);
+
+    }
+}
+
+
+/*    //POST method for request OTP
 
     private fun postRequestOtp()
     {
@@ -108,6 +109,4 @@ class LoginActivity : AppCompatActivity() {
 
         })
     }
-
-
-    }
+*/

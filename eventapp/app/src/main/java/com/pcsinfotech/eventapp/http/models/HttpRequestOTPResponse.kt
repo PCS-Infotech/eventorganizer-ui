@@ -1,4 +1,4 @@
-package com.pcsinfotech.eventapp.modals
+package com.pcsinfotech.eventapp.http.models
 
 
 data class RequestBodyForRequestOtp(

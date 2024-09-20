@@ -1,4 +1,4 @@
-package com.pcsinfotech.eventapp.interfaces
+package com.pcsinfotech.eventapp.http
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
