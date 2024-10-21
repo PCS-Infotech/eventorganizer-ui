@@ -61,10 +61,9 @@ class LoginActivity : AppCompatActivity() {
 
       private fun updateDropdown(items: List<IsoCode>) {
 
-            val adapter = ArrayAdapter(this@LoginActivity, R.layout.activity_login, items)
-            val autoCompleteTextView = findViewById<MaterialAutoCompleteTextView>(R.id.autoCompleteTextView)
+            val adapter = ArrayAdapter(this@LoginActivity, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, items)
+            val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView)
             autoCompleteTextView.setAdapter(adapter);
-
     }
 }
 
